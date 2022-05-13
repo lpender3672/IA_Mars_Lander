@@ -139,11 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\lander\lander.cpp" />
-    <ClCompile Include="..\..\..\..\Downloads\lander\lander_graphics.cpp" />
+    <ClCompile Include="lander.cpp" />
+    <ClCompile Include="lander_graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\lander\lander.h" />
+    <ClInclude Include="lander.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
