@@ -949,15 +949,15 @@ void draw_orbital_window (void)
   glPushMatrix();
   glRotated(360.0*simulation_time/MARS_DAY, 0.0, 0.0, 1.0); // to make the planet spin
   if (orbital_zoom > 1.0) {
-    slices = (int)(16*orbital_zoom); if (slices > 160) slices = 160;
-    stacks = (int)(10*orbital_zoom); if (stacks > 100) stacks = 100;
+    slices = (int)(16*orbital_zoom); if (slices > 320) slices = 320;
+    stacks = (int)(10*orbital_zoom); if (stacks > 200) stacks = 200;
   } else {
-    slices = 16; stacks = 10;
+    slices = 32; stacks = 20;
   }
   gluQuadricDrawStyle(quadObj, GLU_FILL);
   gluSphere(quadObj, (1.0 - 0.01/orbital_zoom)*MARS_RADIUS, slices, stacks);
   glColor3f(0.31, 0.16, 0.11);
-  gluQuadricDrawStyle(quadObj, GLU_LINE);
+  //gluQuadricDrawStyle(quadObj, GLU_LINE);
   gluSphere(quadObj, MARS_RADIUS, slices, stacks);
   glPopMatrix();
 
@@ -2062,6 +2062,7 @@ void glut_key (unsigned char k, int x, int y)
 
   }
 }
+
 
 int main (int argc, char* argv[])
   // Initializes GLUT windows and lander state, then enters GLUT main loop

@@ -15,19 +15,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\lander\lander.cpp">
+    <None Include="packages.config" />
+    <None Include="..\..\..\..\Downloads\OpenGL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lander.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\lander\lander_graphics.cpp">
+    <ClCompile Include="lander_graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\lander\lander.h">
+    <ClInclude Include="lander.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
