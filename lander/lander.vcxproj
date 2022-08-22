@@ -145,7 +145,6 @@
   <ItemGroup>
     <ClCompile Include="lander.cpp" />
     <ClCompile Include="lander_graphics.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lander.h" />
