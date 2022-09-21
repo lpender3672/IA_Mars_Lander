@@ -26,6 +26,7 @@ void numerical_dynamics (void)
   // lander's pose. The time step is delta_t (global variable).
 {
   // INSERT YOUR CODE HERE
+	
 
   // Here we can apply an autopilot to adjust the thrust, parachute and attitude
   if (autopilot_enabled) autopilot();
