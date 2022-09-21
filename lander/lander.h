@@ -31,7 +31,6 @@
 #include <cmath>
 #include <cstdlib>
 
-
 // GLUT mouse wheel operations work under Linux only
 #if !defined (GLUT_WHEEL_UP)
 #define GLUT_WHEEL_UP 3
@@ -107,6 +106,7 @@ public:
   vector3d& operator/= (const double &a) { x/=a; y/=a; z/=a; return *this; }
   double abs2() const { return (x*x + y*y + z*z); }
   double abs() const { return sqrt(this->abs2()); }
+  double dot(const vector3d &v) const { return (x*v.x + y*v.y + z*v.z); }
   vector3d norm() const { double s(this->abs()); if (s==0) return *this; else return vector3d(x/s, y/s, z/s); }
   friend ostream& operator << (ostream &out, const vector3d &v) { out << v.x << ' ' << v.y << ' ' << v.z; return out; }
   double x, y, z;
@@ -164,6 +164,8 @@ bool do_texture = true;
 unsigned long throttle_buffer_length, throttle_buffer_pointer;
 double *throttle_buffer = NULL;
 unsigned long long time_program_started;
+bool save_data = false;
+ofstream fout;
 
 // Lander state - the visualization routines use velocity_from_positions, so not sensitive to 
 // any errors in the velocity update in numerical_dynamics
@@ -186,13 +188,14 @@ GLfloat straight_on[] = { 0.0, 0.0, 1.0, 0.0 };
 
 #else // extern declarations of those global variables used in lander.cpp
 
-extern bool stabilized_attitude, autopilot_enabled;
+extern bool stabilized_attitude, autopilot_enabled, save_data;
 extern double delta_t, simulation_time, throttle, fuel;
 extern unsigned short scenario;
 extern string scenario_description[];
 extern vector3d position, orientation, velocity;
 extern parachute_status_t parachute_status;
 extern int stabilized_attitude_angle;
+extern ofstream fout;
 
 #endif
 
@@ -247,3 +250,4 @@ void closeup_mouse_button (int button, int state, int x, int y);
 void closeup_mouse_motion (int x, int y);
 void glut_special (int key, int x, int y);
 void glut_key (unsigned char k, int x, int y);
+void exit_simulation(void);

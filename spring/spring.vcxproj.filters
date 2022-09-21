@@ -15,21 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="..\..\..\..\Downloads\OpenGL.dll" />
-    <None Include="display_lander_data.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lander.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lander_graphics.cpp">
+    <ClCompile Include="spring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lander.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="display_data.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="trajectories.txt" />
   </ItemGroup>
 </Project>

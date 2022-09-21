@@ -1697,6 +1697,15 @@ void reset_simulation (void)
   // Restore initial lander state
   initialize_simulation();
 
+  if (save_data) {
+      fout.open("lander_data.txt");
+
+      if (fout) {}
+      else { // file did not open successfully
+        cout << "Could not open trajectory file for writing" << endl;
+      }
+  }
+
   // Check whether the lander is underground - if so, make sure it doesn't move anywhere
   landed = false;
   crashed = false;
@@ -2063,6 +2072,12 @@ void glut_key (unsigned char k, int x, int y)
   }
 }
 
+void exit_simulation(void) {
+    if (save_data) {
+        fout.close();
+        system("display_lander_data.py");
+    }
+}
 
 int main (int argc, char* argv[])
   // Initializes GLUT windows and lander state, then enters GLUT main loop
@@ -2146,6 +2161,7 @@ int main (int argc, char* argv[])
   glutDisplayFunc(draw_instrument_window);
   glutKeyboardFunc(glut_key);
   glutSpecialFunc(glut_special);
+  atexit(exit_simulation);
 
   // Generate the random number table
   srand(0);
@@ -2156,4 +2172,5 @@ int main (int argc, char* argv[])
   microsecond_time(time_program_started);
 
   glutMainLoop();
+
 }

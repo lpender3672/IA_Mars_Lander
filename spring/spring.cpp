@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 
   // declare variables
-  double m, k, x, v, t_max, dt, t, a;
+  double m, k, x, v, t_max, dt, t, a, x_prev, x_current;
   vector<double> t_list, x_list, v_list;
 
   // mass, spring constant, initial position and velocity
@@ -28,10 +28,18 @@ int main() {
     x_list.push_back(x);
     v_list.push_back(v);
 
+    if (t == 0) {
+        x_prev = -(v * dt - x);
+    }
+    else {
+		x_prev = x_list[t_list.size() - 2];
+    }
+
     // calculate new position and velocity
     a = -k * x / m;
-    x = x + dt * v;
-    v = v + dt * a;
+    x_current = x;
+    x = 2 * x - x_prev + dt * dt * a;
+    v = (x - x_current) / dt;
 
   }
 
@@ -42,23 +50,11 @@ int main() {
     for (int i = 0; i < t_list.size(); i = i + 1) {
       fout << t_list[i] << ' ' << x_list[i] << ' ' << v_list[i] << endl;
     }
+    fout.close(); // added saftey
   } else { // file did not open successfully
     cout << "Could not open trajectory file for writing" << endl;
   }
+  system("display_data.py");
 
-  /* The file can be loaded and visualised in Python as follows:
-
-  import numpy as np
-  import matplotlib.pyplot as plt
-  results = np.loadtxt('trajectories.txt')
-  plt.figure(1)
-  plt.clf()
-  plt.xlabel('time (s)')
-  plt.grid()
-  plt.plot(results[:, 0], results[:, 1], label='x (m)')
-  plt.plot(results[:, 0], results[:, 2], label='v (m/s)')
-  plt.legend()
-  plt.show()
-
-  */
+  return 0;
 }
