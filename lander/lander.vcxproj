@@ -144,12 +144,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="agent.cpp" />
     <ClCompile Include="lander.cpp" />
     <ClCompile Include="lander_graphics.cpp" />
     <ClCompile Include="layer.cpp" />
     <ClCompile Include="network.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="agent.h" />
     <ClInclude Include="lander.h" />
     <ClInclude Include="layer.h" />
     <ClInclude Include="network.h" />

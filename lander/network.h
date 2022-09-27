@@ -8,9 +8,13 @@ class network
 private:
 	
 	std::vector<layer> layers;
+	std::vector<int> network_shape;
 
 public:
 	
-	network(std::vector<int> network_shape);
+	network();
+
+	void set_shape(std::vector<int> _network_shape);
+	
 };
 

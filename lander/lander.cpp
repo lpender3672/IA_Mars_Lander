@@ -13,6 +13,8 @@
 // ahg@eng.cam.ac.uk and gc121@eng.cam.ac.uk.
 
 #include "lander.h"
+#include "agent.h"
+
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -81,15 +83,16 @@ vector3d force(vector3d position, vector3d velocity) {
 
 void verlet_update(void) {
     double lander_mass = UNLOADED_LANDER_MASS + fuel * FUEL_CAPACITY * FUEL_DENSITY;
-    static vector3d prev_position;
+    static vector3d prev_position, acceleration;
     vector3d next_position;
 
+    acceleration = force(position, velocity) / lander_mass;
     if (simulation_time == 0.0) {
-        next_position = position + delta_t * velocity;
-        velocity = velocity + delta_t * force(position, velocity) / lander_mass;
+        next_position = position + delta_t * velocity + 0.5 * delta_t * delta_t * acceleration;
+        velocity = velocity + delta_t * acceleration;
     }
     else {
-        next_position = 2 * position - prev_position + delta_t * delta_t * force(position, velocity) / lander_mass;
+        next_position = 2 * position - prev_position + delta_t * delta_t * acceleration;
         velocity = 1 / (2 * delta_t) * (next_position - prev_position);
     }
     prev_position = position;

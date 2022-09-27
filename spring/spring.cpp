@@ -20,7 +20,7 @@ int main() {
   t_max = 100;
   dt = 0.1;
 
-  // Euler integration
+  // Verlet integration
   for (t = 0; t <= t_max; t = t + dt) {
 
     // append current state to trajectories
