@@ -30,6 +30,13 @@ void autopilot (void)
     Ka = 0.02;
     Kv = 1.0;
     P_threshold = 0.4;
+
+    if (scenario == 7) {
+        double lander_mass = UNLOADED_LANDER_MASS + fuel * FUEL_CAPACITY * FUEL_DENSITY;
+        double Feq = GRAVITY * lander_mass * MARS_MASS / position.abs2();
+        throttle = Feq / MAX_THRUST;
+        return;
+    }
 	
     error = -(0.5 + Ka * altitude + Kv * velocity * position.norm());
     P_out = Kp * error;
@@ -108,7 +115,7 @@ void numerical_dynamics (void)
   // INSERT YOUR CODE HERE
   // append current state to trajectories
 
-    euler_update();
+    verlet_update();
 
   // Here we can apply an autopilot to adjust the thrust, parachute and attitude
   if (autopilot_enabled) autopilot();
@@ -225,6 +232,11 @@ void initialize_simulation (void)
     break;
 
   case 7:
+    // examples paper 1 q3 scenario
+    position = vector3d(0.0, 0.0, MARS_RADIUS + 500);
+    velocity = vector3d(0.0, 0.0, 0.0);
+    autopilot_enabled = true;
+    stabilized_attitude = true;
     break;
 
   case 8:
