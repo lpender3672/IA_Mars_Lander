@@ -32,17 +32,17 @@ void autopilot (void)
         double lander_mass = UNLOADED_LANDER_MASS + fuel * FUEL_CAPACITY * FUEL_DENSITY;
         double Feq = GRAVITY * lander_mass * MARS_MASS / position.abs2();
         P_threshold = Feq / MAX_THRUST;
-        Kp = 0.01;
-        Kd = 0.01;
+        Kp = 0.0910;
+        Kd = 0.1780;
         H0 = 1121.0;
-        P_out = - H0 * (Kp * (altitude - target_altitude) + Kd) / lander_mass;
+        P_out = - H0 * (Kp * (altitude - target_altitude) + Kd * velocity.dot(position.norm())) / lander_mass;
     }
     else {
         Kp = 0.4;
         Ka = 0.02;
         Kv = 1.0;
         P_threshold = 0.4;
-        error = -(0.5 + Ka * altitude + Kv * velocity * position.norm());
+        error = -(0.5 + Ka * altitude + Kv * velocity.dot(position.norm()));
         P_out = Kp * error;
     }
 	
@@ -87,6 +87,10 @@ vector3d force(vector3d position, vector3d velocity) {
     // gravity
     vector3d gravitational_force = - GRAVITY * lander_mass * MARS_MASS * position.norm() / position.abs2();
     force += gravitational_force;
+
+    if (scenario == 7) {
+        force += 100.0 * cos(0.1* 2 * 3.141592654 * simulation_time) * position.norm();
+    }
 
     return force;
 }
@@ -147,7 +151,7 @@ void initialize_simulation (void)
   scenario_description[4] = "elliptical orbit that clips the atmosphere and decays";
   scenario_description[5] = "descent from 200km";
   scenario_description[6] = "areostationary orbit";
-  scenario_description[7] = "";
+  scenario_description[7] = "autopilot control system test";
   scenario_description[8] = "";
   scenario_description[9] = "";
 
@@ -237,8 +241,8 @@ void initialize_simulation (void)
     break;
 
   case 7:
-    // examples paper 1 q3 scenario
-    position = vector3d(0.0, 0.0, MARS_RADIUS + 700);
+    // examples paper scenarios
+    position = vector3d(0.0, 0.0, MARS_RADIUS + 510);
     velocity = vector3d(0.0, 0.0, 0.0);
     autopilot_enabled = true;
     stabilized_attitude = true;
